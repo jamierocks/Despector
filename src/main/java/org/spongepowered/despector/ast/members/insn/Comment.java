@@ -1,5 +1,5 @@
 /*
- * The MIT License (MIT)
+ * This file is part of SpongeAPI, licensed under the MIT License (MIT).
  *
  * Copyright (c) SpongePowered <https://www.spongepowered.org>
  * Copyright (c) contributors
@@ -22,12 +22,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.despector.config;
+package org.spongepowered.despector.ast.members.insn;
 
-public class Constants {
+import java.util.ArrayList;
+import java.util.List;
 
-    public static final boolean TRACE_ERRORS = Boolean.getBoolean("despect.trace_on_error");
-    public static final boolean TRACE_ALL = Boolean.getBoolean("despect.trace_all");
-    public static boolean TRACE_ACTIVE = TRACE_ALL;
+public class Comment implements Statement {
+
+    private final List<String> comment_text = new ArrayList<>();
+
+    public Comment(List<String> text) {
+        this.comment_text.addAll(text);
+    }
+
+    public List<String> getCommentText() {
+        return this.comment_text;
+    }
+
+    @Override
+    public void accept(InstructionVisitor visitor) {
+    }
+
+    @Override
+    public String toString() {
+        if (this.comment_text.isEmpty()) {
+            return "";
+        }
+        if (this.comment_text.size() == 1) {
+            return "// " + this.comment_text.get(0);
+        }
+        StringBuilder str = new StringBuilder();
+        str.append("/*\n");
+        for (String line : this.comment_text) {
+            str.append(" * ").append(line).append("\n");
+        }
+        str.append(" */");
+        return str.toString();
+    }
 
 }

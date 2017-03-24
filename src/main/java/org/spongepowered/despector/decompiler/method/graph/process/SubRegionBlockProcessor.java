@@ -103,15 +103,9 @@ public class SubRegionBlockProcessor implements GraphProcessor {
         for (int o = i; o < end; o++) {
             region.add(blocks.get(o));
         }
-        if (Constants.TRACE_ACTIVE) {
-            System.err.println("Processing subregion from " + region.get(0).getBreakpoint() + " to " + region.get(region.size() - 1).getBreakpoint());
-        }
         // process the region down to a single block
         final_blocks.add(partial.getDecompiler().processRegion(partial, region, last, targeted_in_future ? 0 : 1));
 
-        if (Constants.TRACE_ACTIVE) {
-            System.err.println("Done sub region");
-        }
         if(targeted_in_future && blocks.get(end) instanceof GotoOpcodeBlock) {
             return end;
         }
