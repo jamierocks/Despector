@@ -1,4 +1,4 @@
-plugins {
+/*plugins {
     id 'java'
     id 'maven'
 
@@ -7,9 +7,10 @@ plugins {
 
     id 'net.minecrell.licenser' version '0.3'
     id 'com.github.johnrengelman.shadow' version '1.2.4'
-}
+}*/
+apply plugin: 'java'
 
-defaultTasks 'clean', 'licenseFormat', 'build'
+defaultTasks 'clean', /*'licenseFormat',*/ 'build'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -19,7 +20,7 @@ archivesBaseName = project.name.toLowerCase()
 version = '0.1.0-SNAPSHOT'
 
 repositories {
-    mavenLocal()
+    /*mavenLocal()*/
     mavenCentral()
 }
 
@@ -35,11 +36,11 @@ dependencies {
 }
 
 // License header formatting
-license {
-    header file('LICENSE')
-    include '**/*.java'
-    newLine = false
-}
+//license {
+//    header file('LICENSE')
+//    include '**/*.java'
+//    newLine = false
+//}
 
 // Source compiler configuration
 configure([compileJava, compileTestJava]) {
@@ -66,7 +67,7 @@ jar {
     }
 }
 
-shadowJar {
+/*shadowJar {
     classifier ''
 
     dependencies {
@@ -101,7 +102,7 @@ artifacts {
     archives shadowJar
     archives sourceJar
     archives javadocJar
-}
+}*/
 
 task wrapper(type: Wrapper) {
     gradleVersion = '3.1'
